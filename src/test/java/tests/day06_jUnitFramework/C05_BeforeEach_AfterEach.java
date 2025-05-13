@@ -1,5 +1,8 @@
 package tests.day06_jUnitFramework;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -7,18 +10,46 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 
 public class C05_BeforeEach_AfterEach {
+    /*
+        Test method'larinin driver objesini sorunsuz kullanabilmesi icin
+        oncelikle MUTLAKA setUp() calismalidir
+
+        JUnit methodCall'a ihtiyac duymadan
+        Test method'u icin gerekli on ayarlamalari yaptigimiz
+        setUp() otomatik olarak calistirir
+
+        Bunun icin @Before... notasyonlari kullanilir
+
+            @BeforeEach : HER BIR test method'undan once calisir
+                          ornegin 3 test method'u varsa
+                          her test method'undan once calisacagi icin
+                          setUp() method'unu 3 kere calistirir
+            @BeforeAll  : tum method'lardan once calisir
+                          ornegin 3 test method'u varsa
+                          test method'larindan hicbiri calismadan
+                          setUp() method'unu 1 kere calistirir
+
+     */
+
 
     WebDriver driver;
 
+    @BeforeEach
     public void setUp(){
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+        System.out.println("setup() calisti");
+    }
+
+    @AfterEach
+    public void teardown(){
+        driver.quit();
+        System.out.println("teardown() calisti");
     }
 
     @Test
     public void testotomasyonuTesti(){
-        setUp();
         // testotomasyonu sitesine gidin
         driver.get("https://testotomasyonu.com");
 
@@ -33,13 +64,10 @@ public class C05_BeforeEach_AfterEach {
             throw new AssertionError("url testotomasyonu icermiyor");
         }
 
-        driver.quit();
-
     }
 
     @Test
     public void wisequarterTest(){
-        setUp();
         // wisequarter sitesine gidin
         driver.get("https://wisequarter.com");
 
@@ -56,12 +84,10 @@ public class C05_BeforeEach_AfterEach {
 
         }
 
-        driver.quit();
     }
 
     @Test
     public void youtubeTest(){
-        setUp();
         // YouTube sitesine gidin
         driver.get("https://youtube.com");
 
@@ -76,8 +102,6 @@ public class C05_BeforeEach_AfterEach {
             throw new AssertionError("Title Youtube degil");
 
         }
-
-        driver.quit();
 
     }
 }
