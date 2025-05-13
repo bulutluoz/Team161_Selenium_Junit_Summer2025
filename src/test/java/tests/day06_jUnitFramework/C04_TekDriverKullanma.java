@@ -6,32 +6,18 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
 
-public class C02_IfElseIleTest {
-    /*
-        JUnit calistirilan test method'larinin sonuclarini
-        otomatik olarak raporlar
+public class C04_TekDriverKullanma {
+    WebDriver driver;
 
-        ANCAAAKKKK
-        JUnit bir test method'un
-        PASSED veya FAILED olduguna
-        kodlarin sorunsuz olarak calisip bitmesine gore karar verir
-
-        Kodlar sorunsuz calisti ve bitti ise TEST PASSED
-        Kodlar calisirken sorun oldu ve tum kodlar calistirilamadi ise TEST FAILED olur
-
-        if else ile test yapiyorsak
-        failed oldugunda kodun calismasini durdurmak icin
-        exception firlatabiliriz
-        Bakiniz C03
-     */
+    public void setUp(){
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
+    }
 
     @Test
     public void testotomasyonuTesti(){
-
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
-
+        setUp();
         // testotomasyonu sitesine gidin
         driver.get("https://testotomasyonu.com");
 
@@ -41,7 +27,10 @@ public class C02_IfElseIleTest {
 
         if (actualUrl.contains(expectedUrlIcerik)){
             System.out.println("Testotomasyonu testi PASSED");
-        } else System.out.println("Testotomasyonu testi FAILED");
+        } else {
+            System.out.println("Testotomasyonu testi FAILED");
+            throw new AssertionError("url testotomasyonu icermiyor");
+        }
 
         driver.quit();
 
@@ -49,11 +38,7 @@ public class C02_IfElseIleTest {
 
     @Test
     public void wisequarterTest(){
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
-
-
+        setUp();
         // wisequarter sitesine gidin
         driver.get("https://wisequarter.com");
 
@@ -64,17 +49,18 @@ public class C02_IfElseIleTest {
 
         if (actualTitle.contains(expectedTitleIcerik)){
             System.out.println("Wise Quarter testi PASSED");
-        } else System.out.println("Wise Quarter testi FAILED");
+        } else {
+            System.out.println("Wise Quarter testi FAILED");
+            throw new AssertionError("Title Wise Quarter icermiyor");
+
+        }
 
         driver.quit();
     }
 
     @Test
     public void youtubeTest(){
-        WebDriver driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
-
+        setUp();
         // YouTube sitesine gidin
         driver.get("https://youtube.com");
 
@@ -84,9 +70,17 @@ public class C02_IfElseIleTest {
 
         if (actualTitle.equals(expectedTitle)){
             System.out.println("YouTube testi PASSED");
-        } else System.out.println("YouTube testi FAILED");
+        } else {
+            System.out.println("YouTube testi FAILED");
+            throw new AssertionError("Title Youtube degil");
+
+        }
 
         driver.quit();
 
     }
+
+
+
+
 }

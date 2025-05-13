@@ -6,24 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
 
-public class C02_IfElseIleTest {
-    /*
-        JUnit calistirilan test method'larinin sonuclarini
-        otomatik olarak raporlar
-
-        ANCAAAKKKK
-        JUnit bir test method'un
-        PASSED veya FAILED olduguna
-        kodlarin sorunsuz olarak calisip bitmesine gore karar verir
-
-        Kodlar sorunsuz calisti ve bitti ise TEST PASSED
-        Kodlar calisirken sorun oldu ve tum kodlar calistirilamadi ise TEST FAILED olur
-
-        if else ile test yapiyorsak
-        failed oldugunda kodun calismasini durdurmak icin
-        exception firlatabiliriz
-        Bakiniz C03
-     */
+public class C03_OtomatikSonucRaporlama {
 
     @Test
     public void testotomasyonuTesti(){
@@ -41,7 +24,10 @@ public class C02_IfElseIleTest {
 
         if (actualUrl.contains(expectedUrlIcerik)){
             System.out.println("Testotomasyonu testi PASSED");
-        } else System.out.println("Testotomasyonu testi FAILED");
+        } else {
+            System.out.println("Testotomasyonu testi FAILED");
+            throw new AssertionError("url testotomasyonu icermiyor");
+        }
 
         driver.quit();
 
@@ -64,7 +50,11 @@ public class C02_IfElseIleTest {
 
         if (actualTitle.contains(expectedTitleIcerik)){
             System.out.println("Wise Quarter testi PASSED");
-        } else System.out.println("Wise Quarter testi FAILED");
+        } else {
+            System.out.println("Wise Quarter testi FAILED");
+            throw new AssertionError("Title Wise Quarter icermiyor");
+
+        }
 
         driver.quit();
     }
@@ -84,7 +74,11 @@ public class C02_IfElseIleTest {
 
         if (actualTitle.equals(expectedTitle)){
             System.out.println("YouTube testi PASSED");
-        } else System.out.println("YouTube testi FAILED");
+        } else {
+            System.out.println("YouTube testi FAILED");
+            throw new AssertionError("Title Youtube degil");
+
+        }
 
         driver.quit();
 
