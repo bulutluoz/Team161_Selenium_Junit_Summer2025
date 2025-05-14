@@ -103,7 +103,7 @@ public class C01_DetayliAramaTesti {
 
         WebElement ilkUrunSayfasindakiIsimElementi = driver.findElement(By.xpath("//div[@class=' heading-sm mb-4']"));
 
-        String actualUrunIsmi = ilkUrunSayfasindakiIsimElementi.getText();
+        String actualUrunIsmi = ilkUrunSayfasindakiIsimElementi.getText().toLowerCase();
 
         if (actualUrunIsmi.contains(expectedUrunIsimIcerigi)){
             System.out.println("Ilk urun isim testi PASSED");
