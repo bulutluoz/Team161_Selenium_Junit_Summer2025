@@ -85,6 +85,20 @@ public class C02_DropdownMenu extends TestBase_Each {
 
         Assertions.assertEquals(expectedMenuBoyutu,actualMenuBoyutu);
 
+        // ekstra gorev
+        // gun dropdown menusundeki tum secenekleri bir liste olarak yazdirin
+        List<WebElement> gunDropdownElementleriList = selectDay.getOptions();
+        List<String> gunDropdownSecenekleriStringList =
+                ReusableMethods.stringListeDonustur(gunDropdownElementleriList);
+
+        System.out.println(gunDropdownSecenekleriStringList);
+        // [Gün, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+
+
+        // istersek tek satirda da yazdirabiliriz
+        System.out.println(  ReusableMethods.stringListeDonustur(gunDropdownElementleriList) );
+        // [Gün, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+
         ReusableMethods.bekle(3);
 
     }
