@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import utilities.ReusableMethods;
 import utilities.TestBase_Each;
 
 public class C01_Dropdown extends TestBase_Each {
@@ -13,6 +14,7 @@ public class C01_Dropdown extends TestBase_Each {
     public void test01(){
         //1. http://zero.webappsecurity.com/ Adresine gidin
         driver.get("http://zero.webappsecurity.com/");
+        ReusableMethods.bekle(1);
         //2. Sign in butonuna basin
         driver.findElement(By.id("signin_button"))
                 .click();
@@ -28,12 +30,15 @@ public class C01_Dropdown extends TestBase_Each {
         // back tusuna basarak sayfaya donun
         driver.navigate()
                 .back();
+        ReusableMethods.bekle(3);
         //6. Online banking menusunden
         driver.findElement(By.xpath("//strong[text()='Online Banking']"))
                 .click();
+        ReusableMethods.bekle(1);
         // Pay Bills sayfasina gidin
         driver.findElement(By.id("pay_bills_link"))
                 .click();
+        ReusableMethods.bekle(2);
         //7. “Purchase Foreign Currency” tusuna basin
         driver.findElement(By.xpath("//a[.='Purchase Foreign Currency']"))
                 .click();
@@ -57,9 +62,20 @@ public class C01_Dropdown extends TestBase_Each {
         driver.findElement(By.id("pc_inDollars_false"))
                 .click();
         //12. “Calculate Costs” butonuna basin
-
+        driver.findElement(By.id("pc_calculate_costs"))
+                .click();
         // sonra “purchase” butonuna basin
-
+        driver.findElement(By.id("purchase_cash"))
+                .click();
+        ReusableMethods.bekle(2);
         //13. “Foreign currency cash was successfully purchased.” yazisinin ciktigini kontrol edin.
+
+        WebElement uyariYaziElementi = driver.findElement(By.id("alert_content"));
+
+        String expectedYazi = "Foreign currency cash was successfully purchased.";
+        String actualYazi = uyariYaziElementi.getText();
+
+        Assertions.assertEquals(expectedYazi,actualYazi);
+
     }
 }
