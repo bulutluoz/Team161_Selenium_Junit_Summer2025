@@ -45,8 +45,19 @@ public class C01_Iframe extends TestBase_Each {
         Assertions.assertEquals(expectedYazi,yaziElementi.getText());
 
         //5- ‘Fashion’ yazisinin gorunur olduğunu test edin
+        //    fashion yazisi 2. iframe'in icinde oldugundan once o iframe'e gecis yapmaliyiz
+
+        WebElement iframeFashion = driver.findElement(By.xpath("(//iframe)[2]"));
+        driver.switchTo().frame(iframeFashion);
+
+        WebElement fashionYaziElementi = driver.findElement(By.xpath("//h2[.='Fashion']"));
+
+        Assertions.assertTrue(fashionYaziElementi.isDisplayed());
 
         //6- Fashion bolumundeki ilk urunu tiklayin
+        //   ilk urunu tikladigimizda YENI BIR TAB'da urun aciliyor
+        //   bu gorevi yapabilmek icin ONCE WINDOW'LAR ARASINDA NASIL GECIS YAPABILECEGIMIZI ogrenelim
+
 
         //   ve ilk urun isminde "Men Slim Fit" gectigini test edin
 
