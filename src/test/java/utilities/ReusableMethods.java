@@ -55,4 +55,21 @@ public class ReusableMethods {
         }
     }
 
+    public static void titleIleWindowGecisi(WebDriver driver, String hedefTitle){
+
+        Set<String> acikOlanTumWindowlarinWhdSeti = driver.getWindowHandles();
+
+        for (String eachWhd :acikOlanTumWindowlarinWhdSeti){
+
+            driver.switchTo().window(eachWhd);
+
+            String actualTitle = driver.getTitle();
+
+            if (hedefTitle.equals(actualTitle)){
+                break;
+            }
+
+        }
+    }
+
 }
