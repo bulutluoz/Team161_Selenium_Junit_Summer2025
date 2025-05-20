@@ -102,5 +102,6 @@ public class C01_KontrolsuzAcilanWindow extends TestBase_Each {
         Assertions.assertTrue(fashionYaziElementi.isDisplayed());
 
         ReusableMethods.bekle(3);
+
     }
 }
