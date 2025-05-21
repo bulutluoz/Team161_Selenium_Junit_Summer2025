@@ -1,5 +1,6 @@
 package tests.day12_actionsClass_FakerClass;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -38,7 +39,11 @@ public class C04_KeyboardActions extends TestBase_Each {
 
 
         //3- Bulunan urun isminde “DELL Core I3” bulundugunu test edin
+        WebElement urunIsimElementi = driver.findElement(By.xpath("//*[@class='prod-title mb-3 '] "));
+        String expectedIsimIcerik = "DELL Core I3";
+        String actualIsim = urunIsimElementi.getText();
 
+        Assertions.assertTrue(actualIsim.contains(expectedIsimIcerik));
 
         ReusableMethods.bekle(3);
     }
