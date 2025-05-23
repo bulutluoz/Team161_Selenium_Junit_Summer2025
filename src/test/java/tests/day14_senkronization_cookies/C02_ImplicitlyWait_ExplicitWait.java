@@ -101,7 +101,7 @@ public class C02_ImplicitlyWait_ExplicitWait {
 
         // WebElement itsGoneElementi = driver.findElement(By.xpath("//*[.=\"It's gone!\"]"));
 
-        WebElement itsGoneElementi = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[.=\"It's gone!\"]")));
+        WebElement itsGoneElementi = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[.=\"It's gone!\"]")));
         Assertions.assertTrue(itsGoneElementi.isDisplayed());
 
         //4. Add buttonuna basin
@@ -109,8 +109,11 @@ public class C02_ImplicitlyWait_ExplicitWait {
 
         //5. It’s back mesajinin gorundugunu test edin
         //   It’s back mesajinin gorunur olmasi icin yine explicit wait kullanmaliyiz
+        //   yeniden wait objesi olusturmaya gerek yok
+        //   ama 2. ve 3.adimlari birlestirerek yazmamiz gerekiyor
 
-        WebElement itsBackElementi = driver.findElement(By.xpath("//*[.=\"It's back!\"]"));
+        // WebElement itsBackElementi = driver.findElement(By.xpath("//*[.=\"It's back!\"]"));
+        WebElement itsBackElementi = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[.=\"It's back!\"]")));
 
         Assertions.assertTrue(itsBackElementi.isDisplayed());
 
