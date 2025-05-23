@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -84,20 +85,34 @@ public class C02_ImplicitlyWait_ExplicitWait {
         //3. “It’s gone!” mesajinin goruntulendigini dogrulayin.
 
         // explicit wait icin 3 adima ihtiyac var
+        /*
+            EGER
+            webelementi locate edebilmek icin
+            beklememiz gerekiyorsa
+            o zaman 2. ve 3.adimi birlestiriyoruz
+         */
+
+
         // 1.adim : webdriver wait objesi olusturmak
         WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
 
         // 2.adim : kullanilacak webelement'i locate edip kaydedelim
-        WebElement itsGoneElementi = driver.findElement(By.xpath("//*[.=\"It's gone!\"]"));
-
         // 3.adim : spesifik webelement ve spesifik gorev icin wait objesi ile bekleme yapin
 
+        // WebElement itsGoneElementi = driver.findElement(By.xpath("//*[.=\"It's gone!\"]"));
 
-
-
+        WebElement itsGoneElementi = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[.=\"It's gone!\"]")));
+        Assertions.assertTrue(itsGoneElementi.isDisplayed());
 
         //4. Add buttonuna basin
+        driver.findElement(By.xpath("//*[.='Add']")).click();
+
         //5. It’s back mesajinin gorundugunu test edin
+        //   It’s back mesajinin gorunur olmasi icin yine explicit wait kullanmaliyiz
+
+        WebElement itsBackElementi = driver.findElement(By.xpath("//*[.=\"It's back!\"]"));
+
+        Assertions.assertTrue(itsBackElementi.isDisplayed());
 
         driver.quit();
 
