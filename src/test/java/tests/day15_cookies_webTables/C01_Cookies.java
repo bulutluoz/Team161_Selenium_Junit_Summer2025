@@ -7,6 +7,8 @@ import org.openqa.selenium.Cookie;
 import utilities.ReusableMethods;
 import utilities.TestBase_Each;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class C01_Cookies extends TestBase_Each {
@@ -86,7 +88,7 @@ public class C01_Cookies extends TestBase_Each {
         //      liste "en sevdigim cookie" iceriyor mu diye test edebilirim
         //   B- "en sevdigim cookie" 'nin value'sunun "cikolatali" oldugunu test edebilirim
 
-        // B-yontemi
+        // B-yontemi (NullPointerException riski var)
         Cookie actualCookie = driver.manage().getCookieNamed("en sevdigim cookie");
         String expectedCookieValue = "cikolatali";
         String actualCookieValue = actualCookie.getValue();
@@ -94,11 +96,43 @@ public class C01_Cookies extends TestBase_Each {
         Assertions.assertEquals(expectedCookieValue,actualCookieValue);
 
         // A yontemi
+        cookieSet = driver.manage().getCookies();
+
+        // tum cookie'lerin isimlerini olusturacagimiz bir listeye ekleyelim
+
+        List<String> cookieIsimleriList = new ArrayList<>();
+
+        for (Cookie eachCookie : cookieSet){
+            cookieIsimleriList.add(eachCookie.getName());
+        }
+
+        // listede en sevdigim cookie bulundugunu test edelim
+        Assertions.assertTrue(cookieIsimleriList.contains("en sevdigim cookie"));
+
 
 
         //8- ismi SOCS olan cookie’yi silin ve silindigini test edin
-        //9- tum cookie’leri silin ve silindigini test edin
 
+        driver.manage().deleteCookieNamed("SOCS");
+
+        cookieSet = driver.manage().getCookies();
+
+        cookieIsimleriList = new ArrayList<>();
+
+        for (Cookie eachCookie : cookieSet){
+            cookieIsimleriList.add(eachCookie.getName());
+        }
+
+        Assertions.assertFalse(cookieIsimleriList.contains("SOCS"));
+
+        //9- tum cookie’leri silin
+        driver.manage().deleteAllCookies();
+
+        // ve silindigini test edin
+
+        cookieSet = driver.manage().getCookies();
+
+        Assertions.assertTrue(cookieSet.isEmpty());
 
     }
 }
