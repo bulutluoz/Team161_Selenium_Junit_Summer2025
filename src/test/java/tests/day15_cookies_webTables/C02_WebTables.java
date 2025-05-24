@@ -77,16 +77,55 @@ public class C02_WebTables extends TestBase_Each {
 
         Assertions.assertEquals(expectedSutunSayisi,actualSutunSayisi);
 
-
         //7. 3.sutunu yazdirin
+        List<WebElement> ucuncuSutunElementleriList = driver.findElements(By.xpath("//tr[*]/td[3]"));
+
+        System.out.println("Ucuncu sutun : " + ReusableMethods.stringListeDonustur(ucuncuSutunElementleriList));
+        // Ucuncu sutun : [$399.00, $40.00, $99.00, $39.00, $15.00]
 
         //8. Tablodaki basliklari yazdirin
+        WebElement baslikElementi = driver.findElement(By.tagName("thead"));
+        System.out.println("Baslik satiri : " + baslikElementi.getText());
+        // Baslik satiri : Produt Name Category Price Actions
+
+        // eger basliklari ayri ayri gormek isterseniz
+        // baslik satirindaki datalari bir liste olarak kaydedebiliriz
+
+        List<WebElement> baslikElementleriList = driver.findElements(By.tagName("th"));
+
+        System.out.println("Basliklar listesi : " + ReusableMethods.stringListeDonustur(baslikElementleriList) );
+        // Basliklar listesi : [Produt Name, Category, Price, Actions]
 
         //9. Satir ve sutunu parametre olarak alip,
         //   hucredeki bilgiyi döndüren bir method olusturun
 
+        //   her web tablosunun yapisi birbirinden farkli olabilir
+        //   boyle bir method'u butun web tablolari icin kullanamayiz
+        //   Bundan dolayi resusable methods class'ina koyamayiz
+
+        System.out.println(getCellData(2, 3)); // 	$40.00
+        System.out.println(getCellData(3, 1)); // 	Medium 25 L Laptop Backpack
+
 
         //10. 4.satirdaki category degerinin "Furniture" oldugunu test edin
 
+        //    4.satir 2.sutun
+        String actualData= getCellData(4,2);
+        String expectedData = "Furniture";
+
+        Assertions.assertEquals(expectedData,actualData);
+
+    }
+
+    public String getCellData(int satirNo, int sutunNo){
+
+        //     //tr[    2    ]/td[   1    ]
+
+
+        String dinamikXpath = "//tr[" + satirNo + "]/td[" + sutunNo + "]";
+
+        WebElement istenenHucreElementi = driver.findElement(By.xpath(dinamikXpath));
+
+        return istenenHucreElementi.getText();
     }
 }
