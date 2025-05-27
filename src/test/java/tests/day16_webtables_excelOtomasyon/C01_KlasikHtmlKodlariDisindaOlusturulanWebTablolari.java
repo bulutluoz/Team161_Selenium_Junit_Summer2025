@@ -63,9 +63,49 @@ public class C01_KlasikHtmlKodlariDisindaOlusturulanWebTablolari extends TestBas
         //  8. Tablodaki 3.kolonu yazdirin
         //     Web tablolarinda sutun yapisi yoktur
         //     3.sutunu yazdirmak icin HER SATIRDAKI 3.datayi yazdirmaliyiz
+        List<WebElement> ucuncuSutunElementleriList = driver.findElements(By.xpath("//*[@role='trow'][*]/*[@role='tdata'][3]"));
 
-        //  9. Bir method olusturun, Test sayfasindan satir ve sutun verildiginde datayi yazdirsin
+        List<String> ucuncuSutunDatalariList = ReusableMethods.stringListeDonustur(ucuncuSutunElementleriList);
+
+        System.out.println("3.Sutun : " + ucuncuSutunDatalariList);
+        // 3.Sutun : [$399.00, $399.00, $399.00, $40.00, $15.00]
+
+
+        //  9. Bir method olusturun, Test method'undan satir ve sutun verildiginde datayi dondursun
+        System.out.println(getCellData(1,2)); // Electronics
+        System.out.println(getCellData(4,1)); // Samsung White Smart Watch
+        System.out.println(getCellData(3,3)); // $399.00
+
 
         // 10. Tabloda " Category" si Furniture olan urunun fiyatini yazdirin
+        //     tum satirlari elden gecirip
+        //     satirdaki category ( 2.data) Furniture ise
+        //     satirdaki fiyati (3.data) yazdirmaliyiz
+
+        int satirSayisi = satirElementleriList.size();
+
+        for (int i = 1; i <=satirSayisi ; i++) {
+
+            String satirdakiCategory = getCellData(i,2);
+            String satirdakiFiyat = getCellData(i,3);
+
+            if (satirdakiCategory.equalsIgnoreCase("Furniture")){
+                System.out.println(satirdakiFiyat);
+            }
+
+        }
+
+    }
+
+    public String getCellData(int satirNo, int sutunNo){
+      //              //*[@role='trow'][    3   ]/*[@role='tdata'][   2   ]
+
+        String dinamikXpath = "//*[@role='trow'][" + satirNo + "]/*[@role='tdata'][" + sutunNo + "]";
+
+        WebElement hedefCellElementi = driver.findElement(By.xpath(dinamikXpath));
+
+        return hedefCellElementi.getText();
+
     }
 }
+
