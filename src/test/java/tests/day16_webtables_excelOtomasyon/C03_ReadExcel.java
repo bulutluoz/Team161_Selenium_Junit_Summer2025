@@ -57,12 +57,46 @@ public class C03_ReadExcel {
 
 
         //- Fiziki olarak kullanilan satir sayisinin 191 oldugunu test edin
+        int expectedKullanilanSatirSayisi = 191;
+        int actualKullanilanSatirSayisi = sayfa1.getPhysicalNumberOfRows();
+
+        Assertions.assertEquals(expectedKullanilanSatirSayisi,actualKullanilanSatirSayisi);
 
         //- Ingilizce ismi Netherland olan ulkenin baskentinin turkce Amsterdam oldugunu test edin
 
+        for (int i = 0; i <= sayfa1.getLastRowNum() ; i++) {
+
+            String satirdakiIngUlkeIsmi = sayfa1.getRow(i)
+                                                .getCell(0)
+                                                .getStringCellValue();
+            String satirdakiTurkceBaskentIsmi = sayfa1.getRow(i)
+                                                        .getCell(3)
+                                                        .getStringCellValue();
+
+            if (satirdakiIngUlkeIsmi.equalsIgnoreCase("Netherlands")){
+                Assertions.assertEquals(satirdakiTurkceBaskentIsmi,"Amsterdam");
+            }
+
+        }
+
         //- Turkce baskent isimlerinde Ankara bulundugunu test edin
 
+        boolean ankaraVarMi = false;
 
+        for (int i = 0; i <=sayfa1.getLastRowNum() ; i++) {
+            String satirdakiTurkceBaskentIsmi = sayfa1.getRow(i)
+                                                        .getCell(3)
+                                                        .getStringCellValue();
+
+            if (satirdakiTurkceBaskentIsmi.equalsIgnoreCase("Ankara")){
+                ankaraVarMi = true;
+                break;
+            }
+        }
+
+        Assertions.assertEquals(ankaraVarMi,true);
+
+        Assertions.assertTrue(ankaraVarMi);
 
     }
 }
