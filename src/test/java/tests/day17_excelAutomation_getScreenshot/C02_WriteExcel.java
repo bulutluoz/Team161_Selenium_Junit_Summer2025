@@ -36,11 +36,21 @@ public class C02_WriteExcel {
         //8) 15.satir nufus kolonuna 54000 yazdiralim
         sayfa1.getRow(14).createCell(4).setCellValue(54000);
 
+        sayfa1.getRow(1).getCell(2).setCellValue("Naber???????");
 
         // ek gorev
-        // 191.ulke olarak Javaistan ekleyin, baskenti Malatya olsun
+        // 191.ulke olarak Javaland ekleyin, baskenti Malatya olsun
 
+        int yeniSatirIndex = sayfa1.getLastRowNum()+1 ;
+        sayfa1.createRow(yeniSatirIndex);
+        // yeni satirda ulke ismi yazacagimiz hucreyi olusturup Javaland yazdiralim
+        sayfa1.getRow(yeniSatirIndex)
+                .createCell(0)
+                .setCellValue("Javaland");
 
+        sayfa1.getRow(yeniSatirIndex)
+                .createCell(1)
+                .setCellValue("Malatya");
 
         //9) Dosyayi kaydedelim
         //   Biz yaptigimiz degisiklikleri excel'e kaydetmeden once
