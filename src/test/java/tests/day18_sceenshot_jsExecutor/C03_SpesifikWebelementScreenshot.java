@@ -53,6 +53,7 @@ public class C03_SpesifikWebelementScreenshot extends TestBase_Each {
 
         // ilk urunu tiklayin
 
+
         // acilan sayfada urun isminde case sensitive olmadan
         // phone bulundugunu test edin
 
