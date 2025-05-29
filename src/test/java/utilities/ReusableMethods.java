@@ -237,5 +237,58 @@ public class ReusableMethods {
         }
     }
 
+    public static void webElementTarihliResimCek(WebElement hedefElement){
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+        // istedigimiz formati olusturalim _290525_190923
+        DateTimeFormatter istenenFormat = DateTimeFormatter.ofPattern("_ddMMyy_HHmmss");
+
+        String tarihEtiketi = localDateTime.format(istenenFormat);
+
+        // 1.adim : screenshot alacaginiz webelementi locate edip, kaydedin
+        //          biz arama sonuc yazisi elementini zaten locate edip kaydetmistik
+
+        // 2.adim : screenshot'i kaydedecegimiz dosyayi(File) olusturun
+        String dosyaYolu = "target/screenshots/istenenWebElement"+tarihEtiketi+".jpg";
+        File asilResim = new File(dosyaYolu);
+
+        // 3.adim : webElement'i kullanarak screenshot alip
+        //          gecici bir dosyaya(File) kaydedin
+        File geciciResim = hedefElement.getScreenshotAs(OutputType.FILE);
+
+        // 4.adim : gecici resmi asil resme kopyalayin
+        try {
+            FileUtils.copyFile(geciciResim,asilResim);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void webElementTarihliResimCek(WebElement hedefElement, String resimIsmi){
+
+        LocalDateTime localDateTime = LocalDateTime.now();
+        // istedigimiz formati olusturalim _290525_190923
+        DateTimeFormatter istenenFormat = DateTimeFormatter.ofPattern("_ddMMyy_HHmmss");
+
+        String tarihEtiketi = localDateTime.format(istenenFormat);
+
+
+        // 1.adim : screenshot alacaginiz webelementi locate edip, kaydedin
+
+        // 2.adim : screenshot'i kaydedecegimiz dosyayi(File) olusturun
+        String dosyaYolu = "target/screenshots/"+resimIsmi+tarihEtiketi+".jpg";
+        File asilResim = new File(dosyaYolu);
+
+        // 3.adim : webElement'i kullanarak screenshot alip
+        //          gecici bir dosyaya(File) kaydedin
+        File geciciResim = hedefElement.getScreenshotAs(OutputType.FILE);
+
+        // 4.adim : gecici resmi asil resme kopyalayin
+        try {
+            FileUtils.copyFile(geciciResim,asilResim);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
