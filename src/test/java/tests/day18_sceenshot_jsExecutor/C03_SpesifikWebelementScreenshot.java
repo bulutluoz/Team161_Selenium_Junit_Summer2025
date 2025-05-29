@@ -52,13 +52,22 @@ public class C03_SpesifikWebelementScreenshot extends TestBase_Each {
 
 
         // ilk urunu tiklayin
+        driver.findElement(By.xpath("(//*[@class='prod-img'])[1]")).click();
 
 
         // acilan sayfada urun isminde case sensitive olmadan
         // phone bulundugunu test edin
 
+        String expectedIsimIcerik = "phone";
+
+        WebElement urunIsimElementi = driver.findElement(By.xpath("//*[@class=' heading-sm mb-4']"));
+        String actualIsim = urunIsimElementi.getText().toLowerCase();
+
+        Assertions.assertTrue(actualIsim.contains(expectedIsimIcerik));
+
         // rapora eklemek icin urun isim elementinin screenshot'ini alip kaydedin
 
+        ReusableMethods.webElementResimCek(urunIsimElementi);
 
     }
 }
